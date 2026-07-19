@@ -5,3 +5,6 @@ QA automation framework for [connect.relay4u.eu](https://connect.relay4u.eu) —
 Product repositories: [prospect-tool-fe](https://github.com/prospect-tool-relay4u-eu/prospect-tool-fe) · [prospect-tool-be](https://github.com/prospect-tool-relay4u-eu/prospect-tool-be) · [relay4u-auth-service-be](https://github.com/prospect-tool-relay4u-eu/relay4u-auth-service-be)
 
 Status: work in progress.
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for local setup, project
+structure, and conventions for writing tests and Page Objects.

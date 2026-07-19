@@ -1,15 +1,41 @@
-import tseslint from 'typescript-eslint';
+import globals from 'globals';
+import pluginJs from '@eslint/js';
 import playwright from 'eslint-plugin-playwright';
 import eslintConfigPrettier from 'eslint-config-prettier';
 
-export default tseslint.config(
+/** @type {import('eslint').Linter.Config[]} */
+export default [
   {
-    ignores: ['node_modules', 'playwright-report', 'test-results', 'blob-report', 'dist'],
+    ignores: [
+      '**/node_modules/*',
+      'playwright.config.js',
+      '**/playwright-report/**',
+    ],
   },
-  ...tseslint.configs.recommended,
-  {
-    files: ['tests/**/*.ts'],
-    ...playwright.configs['flat/recommended'],
-  },
+  { languageOptions: { globals: globals.node } },
   eslintConfigPrettier,
-);
+  {
+    ...pluginJs.configs.recommended,
+    ...playwright.configs['flat/recommended'],
+    rules: {
+      ...pluginJs.configs.recommended.rules,
+      'no-unused-vars': 'error',
+      'max-len': [
+        'error',
+        {
+          code: 80,
+          comments: 80,
+          ignorePattern: 'import *',
+        },
+      ],
+      ...playwright.configs['flat/recommended'].rules,
+      'playwright/expect-expect': 'off',
+    },
+  },
+  {
+    rules: {
+      'no-unused-vars': 'off',
+    },
+    files: ['**/*.spec.js'],
+  },
+];
